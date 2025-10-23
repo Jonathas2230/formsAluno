@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TecladoFuturo - Aulas com Jonathas Souza</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        /* Efeito de partículas musicais no fundo */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(66, 39, 90, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(66, 39, 90, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Animação de teclas flutuantes */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        .key-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Efeito de brilho nos botões */
+        .btn-glow {
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.3);
+        }
+        
+        .btn-glow:hover {
+            box-shadow: 0 0 25px rgba(124, 58, 237, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        /* Estilo personalizado para checkboxes e selects */
+        select, input, textarea {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        select:focus, input:focus, textarea:focus {
+            border-color: rgba(124, 58, 237, 0.5) !important;
+            box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.1) !important;
+        }
+        
+        /* Efeito de transição suave para elementos dinâmicos */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+    <!-- Header Section -->
+    <header class="text-center py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Elemento visual de teclado flutuante -->
+            <div class="flex justify-center mb-6">
+                <div class="key-float">
+                    <i data-feather="music" class="w-16 h-16 text-purple-500"></i>
+                </div>
+            </div>
+            
+            <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-4">
+                Desperte o músico que há em você!
+            </h1>
+            
+            <p class="text-xl text-gray-300 mb-6">
+                Agende suas aulas de teclado – do básico ao intermediário
+            </p>
+            
+            <div class="inline-flex items-center bg-purple-900/30 px-4 py-2 rounded-full border border-purple-500/30">
+                <i data-feather="user" class="w-5 h-5 mr-2 text-purple-400"></i>
+                <span class="text-purple-300">Professor Jonathas Souza</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow px-4 pb-16">
+        <div class="max-w-2xl mx-auto">
+            <!-- Form Section -->
+            <div class="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-gray-700/30">
+                <h2 class="text-2xl font-semibold mb-6 text-center">Agende suas aulas</h2>
+                
+                <form id="agendamentoForm" class="space-y-6">
+                    <!-- Campo Nome Completo -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Nome completo *</label>
+                        <input 
+                            type="text" 
+                            name="nome" 
+                            placeholder="Digite seu nome completo" 
+                            required
+                            class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600/30 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                        >
+                    </div>
+
+                    <!-- Campo Telefone/WhatsApp -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Telefone / WhatsApp *</label>
+                        <input 
+                            type="tel" 
+                            name="telefone" 
+                            placeholder="Seu número com DDD" 
+                            required
+                            class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600/30 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                        >
+                    </div>
+
+                    <!-- Campo E-mail -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">E-mail *</label>
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="exemplo@email.com" 
+                            required
+                            class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600/30 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                        >
+                    </div>
+
+                    <!-- Campo CPF -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">CPF *</label>
+                        <input 
+                            type="text" 
+                            name="cpf" 
+                            placeholder="000.000.000-00" 
+                            required
+                            class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600/30 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                        >
+                    </div>
+
+                    <!-- Campo Nível de Conhecimento -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Nível atual de conhecimento musical *</label>
+                        <select 
+                            name="nivel" 
+                            required
+                            class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600/30 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                        >
+                            <option value="" disabled selected>Selecione seu nível</option>
+                            <option value="Nunca toquei teclado">Nunca toquei teclado</option>
+                            <option value="Sei o básico">Sei o básico</option>
+                            <option value="Já toco, quero evoluir">Já toco, quero evoluir</option>
+                        </select>
+                    </div>
+
+                    <!-- Campo Formato da Aula -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Formato da aula desejado *</label>
+                        <select 
+                            name="formato" 
+                            required
+                            class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600/30 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                        >
+                            <option value="" disabled selected>Selecione o formato</option>
+                            <option value="Presencial">Presencial</option>
+                            <option value="Online">Online</option>
+                            <option value="Tanto faz">Tanto faz</option>
+                        </select>
+                    </div>
+
+                    <!-- Campo Quantidade de Aulas -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Quantidade de aulas por semana *</label>
+                        <select 
+                            name="quantidade_aulas" 
+                            id="quantidadeAulas" 
+                            required
+                            class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600/30 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                        >
+                            <option value="" disabled selected>Selecione a quantidade</option>
+                            <option value="1x">1x</option>
+                            <option value="2x">2x</option>
+                            <option value="3x">3x</option>
+                            <option value="4x ou mais">4x ou mais</option>
+                        </select>
+                    </div>
+
+                    <!-- Seção Dinâmica - Dias da Semana (aparece quando quantidade for selecionada) -->
+                    <div id="diasSection" class="hidden fade-in">
+                        <label class="block text-sm font-medium text-gray-300 mb-3">Selecione os dias da semana *</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" name="dias" value="Segunda" class="mr-2 rounded bg-gray-700/50 border-gray-600/30 text-purple-500 focus:ring-purple-500">
+                                <span class="text-sm">Segunda</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" name="dias" value="Terça" class="mr-2 rounded bg-gray-700/50 border-gray-600/30 text-purple-500 focus:ring-purple-500">
+                                <span class="text-sm">Terça</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" name="dias" value="Quarta" class="mr-2 rounded bg-gray-700/50 border-gray-600/30 text-purple-500 focus:ring-purple-500">
+                                <span class="text-sm">Quarta</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" name="dias" value="Quinta" class="mr-2 rounded bg-gray-700/50 border-gray-600/30 text-purple-500 focus:ring-purple-500">
+                                <span class="text-sm">Quinta</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" name="dias" value="Sexta" class="mr-2 rounded bg-gray-700/50 border-gray-600/30 text-purple-500 focus:ring-purple-500">
+                                <span class="text-sm">Sexta</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" name="dias" value="Sábado" class="mr-2 rounded bg-gray-700/50 border-gray-600/30 text-purple-500 focus:ring-purple-500">
+                                <span class="text-sm">Sábado</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Seção Dinâmica - Turnos (aparece quando dias forem selecionados) -->
+                    <div id="turnosSection" class="hidden fade-in">
+                        <label class="block text-sm font-medium text-gray-300 mb-3">Selecione o(s) turno(s) *</label>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" name="turnos" value="Manhã" class="mr-2 rounded bg-gray-700/50 border-gray-600/30 text-purple-500 focus:ring-purple-500">
+                                <span class="text-sm">Manhã</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" name="turnos" value="Tarde" class="mr-2 rounded bg-gray-700/50 border-gray-600/30 text-purple-500 focus:ring-purple-500">
+                                <span class="text-sm">Tarde</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" name="turnos" value="Noite" class="mr-2 rounded bg-gray-700/50 border-gray-600/30 text-purple-500 focus:ring-purple-500">
+                                <span class="text-sm">Noite</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Campo Dúvidas ou Observações (Opcional) -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Dúvidas ou observações</label>
+                        <textarea 
+                            name="observacoes" 
+                            placeholder="Escreva aqui se tiver alguma dúvida ou observação" 
+                            rows="3"
+                            class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600/30 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                        ></textarea>
+                    </div>
+
+                    <!-- Botão de Envio -->
+                    <div class="pt-4">
+                        <button 
+                            type="submit" 
+                            class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-lg btn-glow flex items-center justify-center"
+                        >
+                            <i data-feather="send" class="w-5 h-5 mr-2"></i>
+                            Enviar Agendamento
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800/50 border-t border-gray-700/30 py-8">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="flex flex-col items-center space-y-4">
+                <p class="text-gray-400 text-sm">Entre em contato pelo professor</p>
+                
+                <div class="flex space-x-6">
+                    <!-- Ícone WhatsApp -->
+                    <a 
+                        href="https://wa.me/5581991273423" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="bg-green-600 hover:bg-green-700 p-3 rounded-full transition-colors duration-200 btn-glow"
+                        aria-label="Entrar em contato via WhatsApp"
+                    >
+                        <i data-feather="message-circle" class="w-6 h-6"></i>
+                    </a>
+                    
+                    <!-- Ícone Instagram -->
+                    <a 
+                        href="https://www.instagram.com/jonathas_souza10/" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="bg-pink-600 hover:bg-pink-700 p-3 rounded-full transition-colors duration-200 btn-glow"
+                        aria-label="Seguir no Instagram"
+                    >
+                        <i data-feather="instagram" class="w-6 h-6"></i>
+                    </a>
+                </div>
+                
+                <p class="text-gray-500 text-xs mt-4">© 2024 Jonathas Souza - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Inicializar feather icons
+        feather.replace();
+        
+        // Variáveis globais
+        const form = document.getElementById('agendamentoForm');
+        const quantidadeAulasSelect = document.getElementById('quantidadeAulas');
+        const diasSection = document.getElementById('diasSection');
+        const turnosSection = document.getElementById('turnosSection');
+        
+        // Mostrar/ocultar seção de dias baseado na quantidade de aulas
+        quantidadeAulasSelect.addEventListener('change', function() {
+            if (this.value) {
+                diasSection.classList.remove('hidden');
+                diasSection.classList.add('fade-in');
+            } else {
+                diasSection.classList.add('hidden');
+                turnosSection.classList.add('hidden');
+            }
+        });
+        
+        // Mostrar/ocultar seção de turnos quando dias forem selecionados
+        document.querySelectorAll('input[name="dias"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const diasSelecionados = document.querySelectorAll('input[name="dias"]:checked').length > 0;
+                
+                if (diasSelecionados) {
+                    turnosSection.classList.remove('hidden');
+                    turnosSection.classList.add('fade-in');
+                } else {
+                    turnosSection.classList.add('hidden');
+                }
+            });
+        });
+        
+        // Validação do formulário e envio para WhatsApp
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validar campos obrigatórios
+            const camposObrigatorios = form.querySelectorAll('[required]');
+            let formularioValido = true;
+            
+            camposObrigatorios.forEach(campo => {
+                if (!campo.value.trim()) {
+                    campo.classList.add('border-red-500');
+                    formularioValido = false;
+                } else {
+                    campo.classList.remove('border-red-500');
+                }
+            });
+            
+            // Validar se pelo menos um dia foi selecionado (se a seção estiver visível)
+            if (!diasSection.classList.contains('hidden')) {
+                const diasSelecionados = document.querySelectorAll('input[name="dias"]:checked');
+                if (diasSelecionados.length === 0) {
+                    alert('Por favor, selecione pelo menos um dia da semana.');
+                    formularioValido = false;
+                }
+            }
+            
+            // Validar se pelo menos um turno foi selecionado (se a seção estiver visível)
+            if (!turnosSection.classList.contains('hidden')) {
+                const turnosSelecionados = document.querySelectorAll('input[name="turnos"]:checked');
+                if (turnosSelecionados.length === 0) {
+                    alert('Por favor, selecione pelo menos um turno.');
+                    formularioValido = false;
+                }
+            }
+            
+            if (!formularioValido) {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+                return;
+            }
+            
+            // Coletar dados do formulário
+            const formData = new FormData(form);
+            const dados = Object.fromEntries(formData.entries());
+            
+            // Processar arrays (dias e turnos)
+            dados.dias = Array.from(formData.getAll('dias')).join(', ');
+            dados.turnos = Array.from(formData.getAll('turnos')).join(', ');
+            
+            // Formatar mensagem para WhatsApp
+            const mensagem = `Olá, Jonathas! Quero agendar minhas aulas de teclado.
+
+*Nome:* ${dados.nome}
+*Telefone:* ${dados.telefone}
+*E-mail:* ${dados.email}
+*CPF:* ${dados.cpf}
+*Nível:* ${dados.nivel}
+*Formato:* ${dados.formato}
+*Aulas por semana:* ${dados.quantidade_aulas}
+${dados.dias ? `*Dias:* ${dados.dias}` : ''}
+${dados.turnos ? `*Turnos:* ${dados.turnos}` : ''}
+${dados.observacoes ? `*Observações:* ${dados.observacoes}` : ''}`;
+            
+            // Codificar mensagem para URL
+            const mensagemCodificada = encodeURIComponent(mensagem);
+            
+            // Abrir WhatsApp com a mensagem
+            window.open(`https://wa.me/5581991273423?text=${mensagemCodificada}`, '_blank');
+            
+            // Limpar formulário após envio
+            form.reset();
+            diasSection.classList.add('hidden');
+            turnosSection.classList.add('hidden');
+        });
+        
+        // Remover classes de erro quando o usuário começar a digitar
+        form.querySelectorAll('input, select, textarea').forEach(campo => {
+            campo.addEventListener('input', function() {
+                this.classList.remove('border-red-500');
+            });
+        });
+    </script>
+</body>
+</html>
